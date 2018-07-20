@@ -1,0 +1,18 @@
+body{
+    background-image: url("../images/mushroom\ cloud.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+   
+
+   
+}
+#game-text{
+    background-color: white;
+}
+p {
+    display: block;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+}
