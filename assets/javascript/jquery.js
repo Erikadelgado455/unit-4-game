@@ -1,7 +1,8 @@
 var currentRoom = "start";
-var commands = ["go", "pickup","loot","explore","fight", "inventory", "talk","enter"];
+var commands = ["go","explore","fight", "inventory", "talk","enter"];
 var inventory = ["10mm pistol", "1 knife","48 10mm JHP","stimpack","2 flares"];
 
+//directions
 function changeRoom(dir) {
     if (rooms[currentRoom].directions[dir] !== undefined) {
         currentRoom = rooms[currentRoom].directions[dir]
@@ -12,7 +13,7 @@ function changeRoom(dir) {
 
 
 }
-
+//help menu
 function showHelp() {
     $('#game-text').append("<p>Here are the possible commands: </p>");
     $('#game-text').append("<p><ul>");
@@ -22,14 +23,14 @@ function showHelp() {
     $('#game-text').append("</ul></p>");
 
 }
-
+//inventory menu
 function showInventory() {
     if (inventory.length === 0) {
         $('#game-text').append("<p>You are not carrying anything!</p>");
         return;
 
     }
-    
+
     $('#game-text').append("<p>Here is your inventory: </p>");
     $('#game-text').append("<p><ul>");
     for (var i = 0; i < inventory.length; i++) {
@@ -38,7 +39,7 @@ function showInventory() {
     $('#game-text').append("</ul></p>");
 
 }
-
+//player input
 function playerInput(input) {
     var command = input.split(" ")[0];
     switch (command) {
