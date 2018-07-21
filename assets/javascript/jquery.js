@@ -1,3 +1,19 @@
+//function for startscreen
+$(function(){
+var Startscreen=$('.Start-screen'),
+    startButton=Startscreen.find('.Start-button');
+
+    setTimeout(function () {
+        Startscreen.removeClass('content-hidden')
+    },800);
+
+    startButton.on('click',function(e){
+        e.preventDefault();
+        Startscreen.addClass('content-hidden').fadeOut();
+    });
+});
+    
+
 var currentRoom = "start";
 var commands = ["go","explore","fight", "inventory", "talk","enter"];
 var inventory = ["10mm pistol", "1 knife","48 10mm JHP","stimpack","2 flares"];
