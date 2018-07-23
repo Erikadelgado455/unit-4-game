@@ -117,4 +117,101 @@ $(document).ready(function() {
             }
           }
         }
-    });
+     //defender when attacked
+ if (areaRender == 'playerDamage') {
+    $('#defender').empty();
+    $('#defender').append("Your selected opponent")
+    renderOne(charObj, '#defender', 'defender');
+    vatsclick.play();
+  }
+  //player character when attacked
+  if (areaRender == 'enemyDamage') {
+    $('#selected-character').empty();
+    renderOne(charObj, '#selected-character', '');
+  }
+  //defeated enemy
+  if (areaRender == 'enemyDefeated') {
+    $('#defender').empty();
+    var gameStateMessage = "You have defeated " + charObj.name + ", you can choose to fight another enemy.";
+    renderMessage(gameStateMessage);
+  }
+  };
+  //all characters for user to choose their enemy
+  renderCharacters(characters, '#characters-section');
+  $(document).on('click', '.character', function() {
+  name = $(this).data('name');
+  //if no player  has been selected
+  if (!currSelectedCharacter) {
+    currSelectedCharacter = characters[name];
+    for (var key in characters) {
+      if (key != name) {
+        players.push(characters[key]);
+      }
+    }
+    $("#characters-section").hide();
+    renderCharacters(currSelectedCharacter, '#selected-character');
+    //all characters for user to choose fight against
+    renderCharacters(players, '#available-to-attack-section');
+  }
+  });
+  
+  // ----------------------------------------------------------------
+  // Create functions to enable actions between objects.
+  $("#attack-button").on("click", function() {
+  //if defernder area has enemy
+  if ($('#defender').children().length !== 0) {
+    //defender state change
+    var attackMessage = "You attacked " + currDefender.name + " for " + (currSelectedCharacter.attack * turnCounter) + " damage.";
+    renderMessage("clearMessage");
+    //combat
+    currDefender.health = currDefender.health - (currSelectedCharacter.attack * turnCounter);
+  
+    //win condition
+    if (currDefender.health > 0) {
+      //enemy not dead keep playing
+      renderCharacters(currDefender, 'playerDamage');
+      //player state change
+      var counterAttackMessage = currDefender.name + " attacked you back for " + currDefender.enemyAttackBack + " damage.";
+      renderMessage(attackMessage);
+      renderMessage(counterAttackMessage);
+  
+      currSelectedCharacter.health = currSelectedCharacter.health - currDefender.enemyAttackBack;
+      renderCharacters(currSelectedCharacter, 'enemyDamage');
+      if (currSelectedCharacter.health <= 0) {
+        renderMessage("clearMessage");
+        restartGame("You have been defeated...GAME OVER!!!");
+        force.play();
+        $("#attack-button").unbind("click");
+      }
+    } else {
+      renderCharacters(currDefender, 'enemyDefeated');
+      killCount++;
+      if (killCount >= 3) {
+        renderMessage("clearMessage");
+        restartGame("You Won! GAME OVER!");
+        jediKnow.play();
+        // The following line will play the imperial march:
+        setTimeout(function() {
+        }, 2000);
+  
+      }
+    }
+    turnCounter++;
+  } else {
+    renderMessage("clearMessage");
+    renderMessage("No enemy here.");
+  }
+  });
+  
+  //Restarts the game - renders a reset button
+  var restartGame = function(inputEndGame) {
+  //When 'Restart' button is clicked, reload the page.
+  var restart = $('<button class="btn">Restart</button>').click(function() {
+    location.reload();
+  });
+  var gameState = $("<div>").text(inputEndGame);
+  $("#gameMessage").append(gameState);
+  $("#gameMessage").append(restart);
+  };
+  
+  });
