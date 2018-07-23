@@ -6,6 +6,11 @@ body {
     font-family: 'Share Tech Mono', monospace;
     font-weight:700;
   }
+  h1{
+    font-family: 'Share Tech Mono', monospace;
+    color: #cdffcc;
+    text-align: center;
+  }
   header {
     font-size: 50px;
     text-align: center;
@@ -88,6 +93,7 @@ body {
   }
   #available-to-attack-section {
     float: right;
+    color: #cdffcc;
   }
   #available-to-attack-section img {
       height: 100px;
@@ -111,4 +117,5 @@ body {
     #gameMessage {
     font-size: 12px;
     }
+    
   }
