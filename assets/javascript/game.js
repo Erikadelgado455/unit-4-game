@@ -2,6 +2,10 @@
 $(document).ready(function() {
 
     let vatsclick=new Audio('assets/images/FO1_LEVEL_UP.mp3');
+    let youwin= new Audio('assets/images/Mus_success.mp3');
+    let youlose=new Audio('assets/images/Death.mp3');
+    let stranger=new Audio('assets/images/Mus_mysteriousstranger_a_01.mp3');
+    let stranger2=new Audio('assets/images/Mus_mysteriousstranger_a_02.mp3')
     //Characters
     let characters = {
         'Vault Dweller': {
@@ -86,6 +90,7 @@ $(document).ready(function() {
           $('#selected-character').prepend("Your Character");       
           renderOne(charObj, areaRender, '');
           $('#attack-button').css('visibility', 'visible');
+            stranger.play();
         }
         //enemy
         if (areaRender == '#available-to-attack-section') {
@@ -93,6 +98,7 @@ $(document).ready(function() {
           for (var i = 0; i < charObj.length; i++) {
       
             renderOne(charObj[i], areaRender, 'enemy');
+
           }
           //enemy to defender area
           $(document).on('click', '.enemy', function() {
@@ -103,6 +109,7 @@ $(document).ready(function() {
               renderCharacters(name, '#defender');
               $(this).hide();
               renderMessage("clearMessage");
+               
             }
           });
         }
@@ -134,6 +141,7 @@ $(document).ready(function() {
     $('#defender').empty();
     var gameStateMessage = "You have defeated " + charObj.name + ", you can choose to fight another enemy.";
     renderMessage(gameStateMessage);
+    stranger2.play();
   }
   };
   //all characters for user to choose their enemy
@@ -158,7 +166,7 @@ $(document).ready(function() {
   // ----------------------------------------------------------------
   // Create functions to enable actions between objects.
   $("#attack-button").on("click", function() {
-  //if defernder area has enemy
+  //if defender area has enemy
   if ($('#defender').children().length !== 0) {
     //defender state change
     var attackMessage = "You attacked " + currDefender.name + " for " + (currSelectedCharacter.attack * turnCounter) + " damage.";
@@ -180,7 +188,7 @@ $(document).ready(function() {
       if (currSelectedCharacter.health <= 0) {
         renderMessage("clearMessage");
         restartGame("You have been defeated...GAME OVER!!!");
-        force.play();
+       youlose.play();
         $("#attack-button").unbind("click");
       }
     } else {
@@ -189,7 +197,8 @@ $(document).ready(function() {
       if (killCount >= 3) {
         renderMessage("clearMessage");
         restartGame("You Won! GAME OVER!");
-        jediKnow.play();
+        youwin.play();
+
         // The following line will play the imperial march:
         setTimeout(function() {
         }, 2000);
