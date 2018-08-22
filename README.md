@@ -1,4 +1,6 @@
 # The Fallout RPG Game!
+![screenshot 14](https://user-images.githubusercontent.com/38364653/43094279-73676710-8e80-11e8-80bd-6243f672c31f.png)
+
 Here's how the app works:
 
    * When the game starts, the player will choose a character by clicking on the fighter's picture. The player will fight as that character for the rest of the game.
